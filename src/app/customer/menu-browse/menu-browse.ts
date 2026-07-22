@@ -1,10 +1,11 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
+import { RouterLink} from '@angular/router'
 import { Menu, MenuItem } from '../../customerServices/menu';
 import { Cart } from '../../customerServices/cart';
 
 @Component({
   selector: 'app-menu-browse',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './menu-browse.html',
   styleUrl: './menu-browse.css',
 })

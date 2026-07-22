@@ -4,8 +4,8 @@
       <p class="font-medium text-sm">Mama Thandi's Kota Spot</p>
       <p class="text-xs text-gray-500">Open now</p>
     </div>
-    <div class="relative">
-      <span class="text-xl">🛒</span>
+    <div routerLink="/cart" class="relative cursor-pointer">
+  <span class="text-xl">🛒</span>
       @if (cart.itemCount() > 0) {
         <span class="absolute -top-1 -right-1 bg-orange-600 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
           {{ cart.itemCount() }}
@@ -80,28 +80,13 @@
 
   @if (cart.itemCount() > 0) {
   <div class="fixed bottom-16 left-0 right-0 max-w-md mx-auto p-4">
-    <button class="w-full bg-orange-600 text-white rounded-lg py-3 text-sm font-medium flex justify-between px-4">
+    <button
+      routerLink="/cart"
+      class="w-full bg-orange-600 text-white rounded-lg py-3 text-sm font-medium flex items-center justify-between px-4 whitespace-nowrap"
+    >
       <span>View cart ({{ cart.itemCount() }} items)</span>
       <span>R{{ cart.total().toFixed(2) }}</span>
     </button>
   </div>
 }
-  <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t flex justify-around py-2">
-  <div class="flex flex-col items-center gap-0.5 text-orange-600">
-    <span class="text-lg">🏠</span>
-    <span class="text-[10px] font-medium">Menu</span>
-  </div>
-  <div class="flex flex-col items-center gap-0.5 text-gray-400">
-    <span class="text-lg">🛒</span>
-    <span class="text-[10px]">Cart</span>
-  </div>
-  <div class="flex flex-col items-center gap-0.5 text-gray-400">
-    <span class="text-lg">📋</span>
-    <span class="text-[10px]">Orders</span>
-  </div>
-  <div class="flex flex-col items-center gap-0.5 text-gray-400">
-    <span class="text-lg">👤</span>
-    <span class="text-[10px]">Profile</span>
-  </div>
-</div>
 </div>

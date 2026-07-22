@@ -1,0 +1,57 @@
+<div class="max-w-md mx-auto bg-white min-h-screen">
+ <div class="p-4 border-b relative flex items-center justify-center">
+  <a routerLink="/order" class="absolute left-4 text-lg">←</a>
+  <p class="font-medium text-sm">Your Cart</p>
+</div>
+
+  @if (cartService.items().length === 0) {
+    <div class="text-center py-16 px-4">
+      <p class="text-gray-400 text-sm">Your cart is empty.</p>
+      <a routerLink="/order" class="text-orange-600 text-sm font-medium mt-2 inline-block">Browse the menu</a>
+    </div>
+  } @else {
+    <div class="px-4 py-3 flex flex-col gap-3">
+      @for (line of cartService.items(); track line.menuItem.id) {
+        <div class="flex gap-3 items-center border rounded-lg p-2">
+          <div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-orange-50">
+            @if (line.menuItem.image_url) {
+              <img [src]="line.menuItem.image_url" [alt]="line.menuItem.name" class="w-full h-full object-cover" />
+            } @else {
+              <div class="w-full h-full flex items-center justify-center text-lg">🍽️</div>
+            }
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium">{{ line.menuItem.name }}</p>
+            <p class="text-xs text-gray-500">R{{ line.menuItem.price.toFixed(2) }}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              (click)="decrementItem(line.menuItem.id, line.quantity)"
+              class="w-6 h-6 rounded-full border flex items-center justify-center text-sm"
+            >−</button>
+            <span class="text-sm w-4 text-center">{{ line.quantity }}</span>
+            <button
+              (click)="incrementItem(line.menuItem.id, line.quantity)"
+              class="w-6 h-6 rounded-full border flex items-center justify-center text-sm"
+            >+</button>
+          </div>
+          <button (click)="removeItem(line.menuItem.id)" class="text-gray-400 text-sm ml-1">🗑️</button>
+        </div>
+      }
+    </div>
+
+    <div class="px-4 py-3 border-t mt-2">
+      <div class="flex justify-between text-sm mb-1">
+        <span class="text-gray-500">Subtotal</span>
+        <span>R{{ cartService.total().toFixed(2) }}</span>
+      </div>
+      <div class="flex justify-between text-base font-semibold mt-2">
+        <span>Total</span>
+        <span>R{{ cartService.total().toFixed(2) }}</span>
+      </div>
+      <button class="w-full bg-orange-600 text-white rounded-lg py-3 text-sm font-medium mt-4">
+        Checkout
+      </button>
+    </div>
+  }
+</div>

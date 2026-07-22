@@ -1,1 +1,22 @@
 <router-outlet></router-outlet>
+
+@if (showBottomNav()) {
+  <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t flex justify-around py-2">
+    <div routerLink="/order" routerLinkActive="text-orange-600" class="flex flex-col items-center gap-0.5 text-gray-400 cursor-pointer">
+      <span class="text-lg">🏠</span>
+      <span class="text-[10px] font-medium">Menu</span>
+    </div>
+    <div routerLink="/cart" routerLinkActive="text-orange-600" class="flex flex-col items-center gap-0.5 text-gray-400 cursor-pointer">
+      <span class="text-lg">🛒</span>
+      <span class="text-[10px]">Cart</span>
+    </div>
+    <div class="flex flex-col items-center gap-0.5 text-gray-300 cursor-not-allowed">
+      <span class="text-lg">📋</span>
+      <span class="text-[10px]">Orders</span>
+    </div>
+    <div class="flex flex-col items-center gap-0.5 text-gray-300 cursor-not-allowed">
+      <span class="text-lg">👤</span>
+      <span class="text-[10px]">Profile</span>
+    </div>
+  </div>
+}
