@@ -46,40 +46,46 @@
   } @else if (filteredItems().length === 0) {
     <p class="text-center text-gray-400 text-sm py-8">No items yet — check back soon.</p>
   } @else {
-    <div class="px-4 pb-24 flex flex-col gap-2">
-      @for (item of filteredItems(); track item.id) {
-        <div class="flex gap-3 items-center border rounded-lg p-2" [class.opacity-50]="!item.available">
-          <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
-            🍽️
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium">{{ item.name }}</p>
-            <p class="text-xs text-gray-500">{{ item.available ? item.description : 'Sold out' }}</p>
-          </div>
-          <div class="text-right">
-            <p class="text-sm font-medium mb-1">R{{ item.price.toFixed(2) }}</p>
-            @if (item.available) {
-              <button
-                (click)="addToCart(item)"
-                class="w-5 h-5 rounded-full bg-orange-600 text-white text-xs flex items-center justify-center ml-auto"
-              >
-                +
-              </button>
-            }
-          </div>
+   <div class="px-4 pb-24 flex flex-col gap-3">
+  @for (item of filteredItems(); track item.id) {
+    <div class="flex gap-3 border rounded-lg p-2" [class.opacity-50]="!item.available">
+      <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-orange-50">
+        @if (item.image_url) {
+          <img [src]="item.image_url" [alt]="item.name" class="w-full h-full object-cover" />
+        } @else {
+          <div class="w-full h-full flex items-center justify-center text-2xl">🍽️</div>
+        }
+      </div>
+      <div class="flex-1 min-w-0 flex flex-col justify-between">
+        <div>
+          <p class="text-base font-semibold">{{ item.name }}</p>
+          <p class="text-xs text-gray-500 mt-0.5">{{ item.available ? item.description : 'Sold out' }}</p>
         </div>
-      }
+        <div class="flex items-center justify-between mt-1">
+          <p class="text-sm font-bold">R{{ item.price.toFixed(2) }}</p>
+          @if (item.available) {
+            <button
+              (click)="addToCart(item)"
+              class="w-6 h-6 rounded-full bg-orange-600 text-white text-sm flex items-center justify-center"
+            >
+              +
+            </button>
+          }
+        </div>
+      </div>
     </div>
+  }
+</div>
   }
 
   @if (cart.itemCount() > 0) {
-    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-4">
-      <button class="w-full bg-orange-600 text-white rounded-lg py-3 text-sm font-medium flex justify-between px-4">
-        <span>View cart ({{ cart.itemCount() }} items)</span>
-        <span>R{{ cart.total().toFixed(2) }}</span>
-      </button>
-    </div>
-  }
+  <div class="fixed bottom-16 left-0 right-0 max-w-md mx-auto p-4">
+    <button class="w-full bg-orange-600 text-white rounded-lg py-3 text-sm font-medium flex justify-between px-4">
+      <span>View cart ({{ cart.itemCount() }} items)</span>
+      <span>R{{ cart.total().toFixed(2) }}</span>
+    </button>
+  </div>
+}
   <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t flex justify-around py-2">
   <div class="flex flex-col items-center gap-0.5 text-orange-600">
     <span class="text-lg">🏠</span>
