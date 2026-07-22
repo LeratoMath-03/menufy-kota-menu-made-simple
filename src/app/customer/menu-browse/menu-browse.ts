@@ -16,6 +16,7 @@ export class MenuBrowse implements OnInit {
   loading = signal(true);
   selectedCategory = signal<string>('All');
   categories = signal<string[]>(['All']);
+  searchQuery = signal<string>('');
 
   ngOnInit(): void {
     this.loadMenu();
@@ -32,11 +33,18 @@ export class MenuBrowse implements OnInit {
   }
 
   filteredItems() {
+
     const category = this.selectedCategory();
-    if (category === 'All') {
-      return this.items();
-    }
-    return this.items().filter(item => item.category === category);
+    const query = this.searchQuery().toLowerCase();
+
+    let result = category === 'All' ? this.items() : this.items().filter(item => item.category === category);
+
+    if (query) 
+      {
+        result = result.filter(item => item.name.toLowerCase().includes(query));
+      }
+      return result;
+
   }
 
   addToCart(item: MenuItem) {
